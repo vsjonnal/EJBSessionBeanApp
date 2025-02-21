@@ -1,0 +1,26 @@
+<weblogic-ejb-jar 
+    xmlns="http://www.bea.com/ns/weblogic/90" 
+    xmlns:j2ee="http://java.sun.com/xml/ns/j2ee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.bea.com/ns/weblogic/90 http://www.bea.com/ns/weblogic/90/weblogic-ejb-jar.xsd">
+
+  <weblogic-enterprise-bean>
+    <ejb-name>TimeoutDDSLS</ejb-name>
+    <stateless-session-descriptor>
+        <business-interface-jndi-name-map>
+            <business-remote>com.test.or.beans.TimeoutDDSLS</business-remote>
+            <jndi-name>TimeoutDDSLS</jndi-name>
+        </business-interface-jndi-name-map>
+    </stateless-session-descriptor>
+    <jndi-name>TimeoutDDSLSHome</jndi-name>
+    
+    <!--ejb-name>TimeoutAnnotSLS</ejb-name>
+    <stateless-session-descriptor>
+    <business-interface-jndi-name-map>
+    <business-remote>com.test.or.beans.TimeoutAnnotSLS</business-remote>
+    <jndi-name>TimeoutAnnotSLS</jndi-name>
+    </business-interface-jndi-name-map>
+    </stateless-session-descriptor>
+    <jndi-name>TimeoutAnnotSLSHome</jndi-name-->
+  </weblogic-enterprise-bean>
+</weblogic-ejb-jar>

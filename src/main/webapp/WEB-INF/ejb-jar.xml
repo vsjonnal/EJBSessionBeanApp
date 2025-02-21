@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd">
+ 
+ <enterprise-beans>
+    <session>
+      <ejb-name>TimeoutDDSLS</ejb-name>
+      <ejb-class>com.test.or.beans.TimeoutDDSLSBean</ejb-class>
+      <session-type>Stateless</session-type>
+      <business-remote>com.test.or.beans.TimeoutDDSLS</business-remote>
+      <timeout-method>
+      	<method-name>timeout</method-name>
+      </timeout-method>
+    </session>
+    <!--session>
+      <ejb-name>TimeoutAnnotSLSTestOR</ejb-name>
+      <ejb-class>com.test.or.beans.TimeoutAnnotSLSBean</ejb-class>
+    </session-->
+ </enterprise-beans>
+ 
+</ejb-jar>
