@@ -17,6 +17,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 @WebServlet(name = "ClientServletAnnot", urlPatterns = {"/ClientServletAnnot"})
 public class ClientServletAnnot extends HttpServlet {
@@ -27,7 +29,7 @@ public class ClientServletAnnot extends HttpServlet {
     String jndiName="java:global.EJBSessionBeanApp.TimeoutAnnotSLSBean!com.test.or.beans.TimeoutAnnotSLS";
     String userName = "system";
     String password = "gumby1234";
-    String serverURL = "t3://100.111.143.183:9001";
+    //String serverURL = "t3://100.111.143.183:9001";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,12 +41,13 @@ public class ClientServletAnnot extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, NamingException {
+            throws ServletException, IOException, NamingException, UnknownHostException {
         response.setContentType("text/html;charset=UTF-8");
         System.out.println("JNDI Context look up for '" + jndiName + "' using user '" + userName + "' and password'"
-                + password + "'." + "url:" + serverURL);
+                + password);
 
         PrintWriter out = response.getWriter();
+        out.println("<br>TEST Started");
         try {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -56,7 +59,7 @@ public class ClientServletAnnot extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
             out.println("<p>TEST Started</p>");
-            Context ctx = getContext(userName, password, serverURL);
+            Context ctx = getContext(userName, password);
             
             Object obj = ctx.lookup(jndiName);
             out.println("<p>Looked up the object -- TimeoutAnnotSLS\n" + obj.getClass() + "</p>");
@@ -110,8 +113,13 @@ public class ClientServletAnnot extends HttpServlet {
         }
     }
 
-    private Context getContext(String userName, String password, String serverURL) throws NamingException {
+    private Context getContext(String userName, String password) throws NamingException, UnknownHostException {
         Hashtable<String, String> h = new Hashtable<>();
+        InetAddress IP=InetAddress.getLocalHost();
+        System.out.println("IP of my system is := "+IP.getHostAddress());
+        String serverURL = "t3://"+IP.getHostAddress()+":9001";
+        System.out.println("ServerURL is from Client Annotate Session Bean App := "+serverURL);
+
         h.put(Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
         h.put(Context.PROVIDER_URL, serverURL);
         h.put(Context.SECURITY_PRINCIPAL, userName);
